@@ -7,23 +7,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import static com.hackerrank.practise.utils.Utility.getHcf;
-import static com.hackerrank.practise.utils.Utility.getLcm;
+import static com.hackerrank.practise.basic.Mathematics.getHcf;
+import static com.hackerrank.practise.basic.Mathematics.getLcm;
 import static java.util.stream.Collectors.toList;
-
-class Arithmetic {
-    public String sum(String[] arr) {
-        return Arrays.stream(arr).reduce("", (i, s) -> i + s);
-    }
-
-    public int sum(Integer[] arr) {
-        return Arrays.stream(arr).reduce(0, Integer::sum);
-    }
-
-}
 
 
 interface BaseI {

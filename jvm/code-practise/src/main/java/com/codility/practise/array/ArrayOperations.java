@@ -1,4 +1,4 @@
-package com.codility.practise;
+package com.codility.practise.array;
 
 public class ArrayOperations {
     private int[] list;

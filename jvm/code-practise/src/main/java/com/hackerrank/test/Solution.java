@@ -1,71 +1,27 @@
 package com.hackerrank.test;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.*;
+import org.jetbrains.annotations.NotNull;
 
-import static java.util.stream.Collectors.joining;
+import java.io.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.toList;
 
 
 class Result {
 
-    /*
-     * Complete the 'prison' function below.
-     *
-     * The function is expected to return a LONG_INTEGER.
-     * The function accepts following parameters:
-     *  1. INTEGER n
-     *  2. INTEGER m
-     *  3. INTEGER_ARRAY h
-     *  4. INTEGER_ARRAY v
-     */
+    public static int findMedian(List<Integer> arr) {
+        if (arr.size() == 1) return arr.get(0);
+        // sort the array
+        arr = arr.stream().sorted().collect(Collectors.toUnmodifiableList());
+        int middle = arr.size() / 2;
 
-    private static long getMaxConsecutiveLength(List<Integer> listNumbers) {
-        // find the max consecutive values or bars
-        int maxHLength = 0, maxVLength = 0, maxHStart = 0, maxVStart = 0;
-        int tmpHLength = 0, tmpHStart = 0, tmpVLength = 0, tmpVstart = 0;
-        for (int i = 0; i < listNumbers.size(); i++) {
-            if (i == 0) {
-                tmpHStart = 0;
-            }
-            // 1,2,3,5,6,10,11,12,13
-            if (listNumbers.get(i) == listNumbers.get(i - 1) + 1) {
-                tmpHLength++;
-            } else { // break if not consequetive
-                if (tmpHLength > maxHLength) {
-                    maxHLength = tmpHLength;
-                    maxHStart = tmpHStart;
-                }
-                tmpHLength = 0;
-                tmpHStart = i;
-            }
-        }
-        return (long) maxHLength;
-    }
-
-    public static long prison(int n, int m, List<Integer> h, List<Integer> v) {
-        // sort the arrays
-        h.sort(Integer::compareTo);
-        v.sort(Integer::compareTo);
-        //
-        long maxH = getMaxConsecutiveLength(h);
-        long maxV = getMaxConsecutiveLength(v);
-        // return the max value
-        return (maxH + 1) * (maxV + 1);
-    }
-
-    public static long getMinimumCost(List<Integer> arr) {
-        // Write your code here
-        HashMap<Integer, Integer> distinctCount = new HashMap<>();
-        for (Integer integer : arr) {
-            if (distinctCount.containsKey(integer)) {
-                distinctCount.put(integer, distinctCount.get(integer) + 1);
-            } else {
-                distinctCount.put(integer, 1);
-            }
-        }
-
+        return arr.get(middle);
     }
 }
 
@@ -87,32 +43,68 @@ public class Solution {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        public static void main (String[]args) throws IOException {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+    public static void main2(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-            int arrCount = Integer.parseInt(bufferedReader.readLine().trim());
+        int arrCount = Integer.parseInt(bufferedReader.readLine().trim());
 
-            List<Integer> arr = IntStream.range(0, arrCount).mapToObj(i -> {
-                        try {
-                            return bufferedReader.readLine().replaceAll("\\s+$", "");
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    })
-                    .map(String::trim)
-                    .map(Integer::parseInt)
-                    .collect(toList());
+        List<Integer> arr = IntStream.range(0, arrCount).mapToObj(i -> {
+                    try {
+                        return getParsedLine(bufferedReader);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                })
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(toList());
 
-            long result = Result.getMinimumCost(arr);
+        long result = Solved.getMinimumCost(arr);
 
-            bufferedWriter.write(String.valueOf(result));
-            bufferedWriter.newLine();
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
 
-            bufferedReader.close();
-            bufferedWriter.close();
-        }
-
+        bufferedReader.close();
+        bufferedWriter.close();
     }
+
+
+    public static void main(String[] args) throws IOException {
+        FileReader inputFile = new FileReader("src/main/resources/input.txt");
+        FileWriter outputFile = new FileWriter("output.txt");
+
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        // read input from file
+        BufferedReader bufferedReader = new BufferedReader(inputFile);
+        BufferedWriter bufferedWriter = new BufferedWriter(outputFile);
+
+        // Input reading logic, you can read multiple lines here
+        //        String line;
+        //        while ((line = bufferedReader.readLine()) != null) {
+        //            List<Integer> arr = Stream.of(line.replaceAll("\\s+$", "").split(" "))
+        //                    .map(Integer::parseInt)
+        //                    .collect(toList());
+        //
+        //            Result.miniMaxSum(arr);
+        //            String result = Solved.timeConversion(line);
+        //    }
+//        int n = Integer.parseInt(getParsedLine(bufferedReader));
+        List<Integer> arr = Stream.of(getParsedLine(bufferedReader).split(" ")).
+                map(Integer::parseInt).
+                collect(Collectors.toList());
+        int result = Result.findMedian(arr);
+        bufferedWriter.write(String.valueOf(result));
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+
+    @NotNull
+    private static String getParsedLine(BufferedReader bufferedReader) throws IOException {
+        return bufferedReader.readLine().replaceAll("\\s+$", "");
+    }
+
 }
