@@ -1,7 +1,9 @@
 package com.hackerrank.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Solved {
     private static long getMaxConsecutiveLength(List<Integer> listNumbers) {
@@ -83,5 +85,67 @@ public class Solved {
             hour = hour == 12 ? 12 : hour + 12;
         }
         return String.format("%02d%s", hour, s.substring(2, 8));
+    }
+
+    public static int findMedian(List<Integer> arr) {
+        if (arr.size() == 1) return arr.get(0);
+        // sort the array
+        arr = arr.stream().sorted().collect(Collectors.toUnmodifiableList());
+        int middle = arr.size() / 2;
+
+        return arr.get(middle);
+    }
+
+    public static int lonelyinteger(List<Integer> a) {
+        // write your code here
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (Integer i : a) {
+            if (map.containsKey(i)) map.put(i, map.get(i) + 1);
+            else map.put(i, 1);
+        }
+        for (Integer i : map.keySet()) {
+            if (map.get(i) == 1) return i;
+        }
+
+        return -1;
+    }
+
+    public static int diagonalDifference(List<List<Integer>> arr) {
+        // Write your code here
+        int leftDiagonal = 0, rightDiagonal = 0, end = arr.size() - 1;
+        for (int i = 0; i <= end; i++) {
+            leftDiagonal += arr.get(i).get(i);
+            rightDiagonal += arr.get(i).get(end - i);
+        }
+        return Math.abs(leftDiagonal - rightDiagonal);
+    }
+
+    /*
+     * Complete the 'countingSort' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+    public static List<Integer> countingSort(List<Integer> arr) {
+        // Write your code here
+
+        // get the max element
+        int max = 100;
+
+        // initialize the map
+        HashMap<Integer, Integer> map = new HashMap<>(max);
+        for (int i = 0; i < max; i++) map.put(i, 0);
+
+        if (!arr.isEmpty()) {
+            // count the frequency
+            for (int i : arr) {
+                if (map.containsKey(i)) map.put(i, map.get(i) + 1);
+            }
+        }
+
+        List<Integer> sorted = new ArrayList<>(max);
+        map.forEach((k, v) -> sorted.add(v));
+
+        return sorted;
     }
 }

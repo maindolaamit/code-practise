@@ -24,7 +24,11 @@ class ResultTest {
 
     @Test
     void findMedian() {
-        int median = Result.findMedian(List.of(0, 1, 2, 4, 6, 5, 3));
+        int median = Solved.findMedian(List.of(0, 1, 2, 4, 6, 5, 3));
         assertEquals(3, median);
+    }
+
+    @Test
+    void test_diagonalDifference() {
     }
 }

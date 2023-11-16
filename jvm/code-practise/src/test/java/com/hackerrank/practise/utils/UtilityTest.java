@@ -1,7 +1,7 @@
 package com.hackerrank.practise.utils;
 
 import com.hackerrank.practise.basic.Mathematics;
-import com.hackerrank.practise.basic.StarPatterns;
+import com.utils.Utility;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

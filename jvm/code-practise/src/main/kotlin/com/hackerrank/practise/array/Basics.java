@@ -1,4 +1,4 @@
-package com.codility.practise.array;
+package com.hackerrank.practise.array;
 
 import java.util.HashMap;
 import java.util.Map;

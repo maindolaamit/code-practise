@@ -1,4 +1,4 @@
-package com.codility.practise.array;
+package com.hackerrank.practise.array;
 
 public class ArrayOperations {
     private int[] list;
