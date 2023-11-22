@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static com.hackerrank.practise.array.Basics.arrayRotation;
+import static com.hackerrank.practise.array.ArrayEasy.arrayRotation;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BasicsTest {

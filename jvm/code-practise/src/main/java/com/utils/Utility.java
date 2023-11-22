@@ -68,4 +68,29 @@ public class Utility {
         bufferedReader.close();
         return result;
     }
+
+    public static List<Pair<List<Integer>, List<Integer>>> readInputFromFileForIntArrayWithListTarget(String filename) throws IOException {
+        FileReader inputFile = new FileReader(filename);
+
+        // read input from file
+        BufferedReader bufferedReader = new BufferedReader(inputFile);
+        String line = null;
+        List<Pair<List<Integer>, List<Integer>>> result = new ArrayList<>();
+        while ((line = bufferedReader.readLine()) != null) {
+            // first line is the number of elements in the array
+            int n = parseSingleIntFromLine(line);
+            // second line is the array of elements
+            List<Integer> arr = Stream.of(getParsedLineFromReader(bufferedReader).split(" "))
+                    .map(Integer::parseInt)
+                    .collect(toList());
+            // third line is the target
+            List<Integer> target = Stream.of(getParsedLineFromReader(bufferedReader).split(" "))
+                    .map(Integer::parseInt)
+                    .collect(toList());
+            // call the method
+            result.add(new Pair<>(target, arr));
+        }
+        bufferedReader.close();
+        return result;
+    }
 }
