@@ -44,34 +44,64 @@ class Solution {
     }
 
     public int maxFrequencyElements(int[] nums) {
-        int n=nums.length;
+        int n = nums.length;
         Map<Integer, Integer> m = new HashMap<>();
         int maxF = 0;
-        for(int i=0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             int num = nums[i];
-            m.put(num,m.getOrDefault(num, 0)+1);
+            m.put(num, m.getOrDefault(num, 0) + 1);
             maxF = Math.max(maxF, m.get(num));
         }
         // loop for max F
-        int count=0;
-        for(Map.Entry<Integer, Integer> e : m.entrySet()){
-            if(e.getValue()==maxF) count+=maxF;
+        int count = 0;
+        for (Map.Entry<Integer, Integer> e : m.entrySet()) {
+            if (e.getValue() == maxF) count += maxF;
         }
         return count;
     }
 
-    private int maxH(TreeNode node){
-        if(node==null) return 0;
-        int l =maxH(node.left);
+    private int maxH(TreeNode node) {
+        if (node == null) return 0;
+        int l = maxH(node.left);
         int r = maxH(node.right);
-        System.out.println("l-"+l+", r-"+r);
-        return 1+Math.max(l,r);
+        System.out.println("l-" + l + ", r-" + r);
+        return 1 + Math.max(l, r);
     }
 
     public int diameterOfBinaryTree(TreeNode root) {
-        if(root == null) return 0;
+        if (root == null) return 0;
         int l = maxH(root.left);
         int r = maxH(root.left);
-        return l+r;
+        return l + r;
     }
+
+    public int search(int[] nums, int target) {
+        int n = nums.length;
+        int s = 0, e = n - 1;
+        while (s <= e) {
+            int m = (e + s) / 2;
+            int mv = nums[m], sv = nums[s], ev = nums[e];
+            // mid is the target
+            if (mv == target) return m;
+            if (sv == target) return s;
+            if (ev == target) return e;
+            // left portion sorted
+            if (sv < mv) {
+                // and target doesn't exist
+                if (target > sv && target < mv) e = m - 1;
+                else s = m + 1;
+            } else if(mv < ev) {
+                // right portion sorted and target exists
+                if (ev > mv && target >= mv) s = m + 1;
+                else e = m - 1;
+            } else{
+                // left and right are sorted
+                if (target > mv) s = m + 1;
+                else e = m - 1;
+            }
+        }
+        return -1;
+    }
+
+
 }

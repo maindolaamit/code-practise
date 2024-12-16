@@ -1,10 +1,13 @@
 package com.leetcode;
 
 import com.leetcode.stack.MinStack;
+import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SolutionTest {
     @Test
@@ -60,6 +63,14 @@ class SolutionTest {
         root.left.left = new TreeNode(4);
         root.left.right = new TreeNode(5);
         System.out.println("Diameter of binary tree: " + solution.diameterOfBinaryTree(root));
+    }
+
+    @Test
+    void search() {
+        Solution solution = new Solution();
+        int[] nums = {4, 5, 6, 7, 0, 1, 2};
+        val search = solution.search(nums, 0);
+        assertEquals(0, search);
     }
 
 }
